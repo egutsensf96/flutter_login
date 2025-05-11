@@ -14,10 +14,8 @@ class LoginScreen extends StatelessWidget {
 
   Duration get loginTime => Duration(milliseconds: timeDilation.ceil() * 2250);
 
-  Future<String?> _loginUser(LoginData data, BuildContext context) async {
+  Future<String?> _loginUser(LoginData data) async {
     await Future.delayed(loginTime);
-
-    if (!context.mounted) return null;
 
     if (!mockUsers.containsKey(data.name)) {
       // ScaffoldMessenger.of(context).showSnackBar(
@@ -150,7 +148,7 @@ class LoginScreen extends StatelessWidget {
         debugPrint('Login info');
         debugPrint('Name: ${loginData.name}');
         debugPrint('Password: ${loginData.password}');
-        return _loginUser(loginData, context);
+        return _loginUser(loginData);
       },
       onSignup: (signupData) {
         debugPrint('Signup info');

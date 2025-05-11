@@ -8,9 +8,7 @@ enum AuthType { provider, userPassword }
 
 /// The callback triggered after login
 /// The result is an error message, callback successes if message is null
-typedef LoginCallback
-    = Future<ScaffoldFeatureController<SnackBar, SnackBarClosedReason>?>
-        Function(LoginData);
+typedef LoginCallback = Future<String?> Function(LoginData);
 
 /// The callback triggered after signup
 /// The result is an error message, callback successes if message is null
