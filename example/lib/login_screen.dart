@@ -14,22 +14,23 @@ class LoginScreen extends StatelessWidget {
 
   Duration get loginTime => Duration(milliseconds: timeDilation.ceil() * 2250);
 
-  Future<ScaffoldFeatureController<SnackBar, SnackBarClosedReason>?> _loginUser(
-      LoginData data, BuildContext context) async {
+  Future<String?> _loginUser(LoginData data, BuildContext context) async {
     await Future.delayed(loginTime);
 
     if (!context.mounted) return null;
 
     if (!mockUsers.containsKey(data.name)) {
-      return ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('User not exists')),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('User not exists')),
+      // );
+      return 'User not exists';
     }
 
     if (mockUsers[data.name] != data.password) {
-      return ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Password does not match')),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('Password does not match')),
+      // );
+      return 'Password does not match';
     }
 
     return null;
@@ -149,7 +150,7 @@ class LoginScreen extends StatelessWidget {
         debugPrint('Login info');
         debugPrint('Name: ${loginData.name}');
         debugPrint('Password: ${loginData.password}');
-        _loginUser(loginData, context);
+        return _loginUser(loginData, context);
       },
       onSignup: (signupData) {
         debugPrint('Signup info');
