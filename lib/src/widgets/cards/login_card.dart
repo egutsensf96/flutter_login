@@ -193,13 +193,16 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       );
     } else {
       if (!widget.requireAdditionalSignUpFields) {
-        error = await auth.onSignup!(
+        final signupResult = await auth.onSignup!(
           SignupData.fromSignupForm(
             name: auth.email,
             password: auth.password,
             termsOfService: auth.getTermsOfServiceResults(),
           ),
         );
+        error = signupResult is String
+            ? signupResult
+            : null; // Ensure proper type assignment
       } else {
         if (auth.beforeAdditionalFieldsCallback != null) {
           error = await auth.beforeAdditionalFieldsCallback!(
