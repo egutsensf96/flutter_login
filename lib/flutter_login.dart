@@ -276,7 +276,7 @@ class FlutterLogin extends StatefulWidget {
     super.key,
     this.onSignup,
     required this.onLogin,
-    required this.onRecoverPassword,
+    this.onRecoverPassword,
     this.title,
 
     /// The [ImageProvider] or asset path [String] for the logo image to be displayed
@@ -335,7 +335,7 @@ class FlutterLogin extends StatefulWidget {
   final List<LoginProvider> loginProviders;
 
   /// Called when the user hit the submit button when in recover password mode
-  final RecoverCallback onRecoverPassword;
+  final RecoverCallback? onRecoverPassword;
 
   /// The large text above the login [Card], usually the app or company name
   final String? title;
