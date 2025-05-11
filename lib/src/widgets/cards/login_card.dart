@@ -185,21 +185,24 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
     auth.authType = AuthType.userPassword;
 
     if (auth.isLogin) {
-      error = (await auth.onLogin?.call(
+      error = await (auth.onLogin!.call(
         LoginData(
           name: auth.email,
           password: auth.password,
         ),
-      )) as String?;
+      ) as Future<String?>);
     } else {
       if (!widget.requireAdditionalSignUpFields) {
-        error = await auth.onSignup!(
+        final signupResult = await auth.onSignup!(
           SignupData.fromSignupForm(
             name: auth.email,
             password: auth.password,
             termsOfService: auth.getTermsOfServiceResults(),
           ),
         );
+        error = signupResult is String
+            ? signupResult
+            : null; // Ensure proper type assignment
       } else {
         if (auth.beforeAdditionalFieldsCallback != null) {
           error = await auth.beforeAdditionalFieldsCallback!(
